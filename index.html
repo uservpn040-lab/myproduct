@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DROP — Premium Streetwear</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="water-bg"></div>
+    <div class="blob blob-one"></div>
+    <div class="blob blob-two"></div>
+
+    <!-- TOP -->
+    <header class="topbar">
+        <div class="logo">
+            DROP<span>•</span>
+        </div>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search the drop..."
+                oninput="searchProducts()"
+            >
+        </div>
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-text">
+            <p class="eyebrow">NEW DROP • 2026</p>
+
+            <h1>
+                WEAR<br>
+                THE <span>WAVE.</span>
+            </h1>
+
+            <p class="hero-description">
+                Premium streetwear, watches and sneakers
+                designed for the next generation.
+            </p>
+
+            <button class="hero-button" onclick="scrollToProducts()">
+                EXPLORE DROP
+                <span>↓</span>
+            </button>
+        </div>
+
+        <div class="hero-circle">
+            <div class="hero-ring"></div>
+            <div class="hero-ring ring-two"></div>
+            <span>DROP</span>
+        </div>
+
+    </section>
+
+
+    <!-- CATEGORY FILTER -->
+    <section class="categories">
+
+        <button class="category active" onclick="filterCategory('all', this)">
+            ALL
+        </button>
+
+        <button class="category" onclick="filterCategory('hoodie', this)">
+            HOODIE
+        </button>
+
+        <button class="category" onclick="filterCategory('tshirt', this)">
+            T-SHIRT
+        </button>
+
+        <button class="category" onclick="filterCategory('ladies', this)">
+            LADIES
+        </button>
+
+        <button class="category" onclick="filterCategory('watch', this)">
+            WATCH
+        </button>
+
+        <button class="category" onclick="filterCategory('sneakers', this)">
+            SNEAKERS
+        </button>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+    <main id="productsSection">
+
+        <div class="section-title">
+            <div>
+                <p>CURATED FOR YOU</p>
+                <h2>THE DROP.</h2>
+            </div>
+
+            <span id="productCount"></span>
+        </div>
+
+
+        <div class="products" id="productGrid">
+
+
+            <!-- PRODUCT 1 -->
+            <article
+                class="product"
+                data-category="hoodie"
+                data-name="Black Oversized Hoodie"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="images/hoodie-black.jpg"
+                        alt="Black Oversized Hoodie"
+                    >
+
+                    <button
+                        class="wishlist"
+                        onclick="toggleWishlist(this, 'Black Oversized Hoodie', 1499)"
+                    >
+                        ♡
+                    </button>
+
+                    <div class="tag">
+                        NEW
+                    </div>
+
+                </div>
+
+                <div class="product-info">
+
+                    <div>
+                        <h3>Black Oversized Hoodie</h3>
+                        <p>Heavyweight • Street Fit</p>
+                    </div>
+
+                    <strong>₹1,499</strong>
+
+                </div>
+
+                <button
+                    class="buy-button"
+                    onclick="openBuy('Black Oversized Hoodie', 1499)"
+                >
+                    BUY
+                </button>
+
+            </article>
+
+
+            <!-- PRODUCT 2 -->
+            <article
+                class="product"
+                data-category="tshirt"
+                data-name="Shadow Oversized Tee"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="images/tshirt-black.jpg"
+                        alt="Shadow Oversized Tee"
+                    >
+
+                    <button
+                        class="wishlist"
+                        onclick="toggleWishlist(this, 'Shadow Oversized Tee', 799)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="product-info">
+
+                    <div>
+                        <h3>Shadow Oversized Tee</h3>
+                        <p>240 GSM • Oversized</p>
+                    </div>
+
+                    <strong>₹799</strong>
+
+                </div>
+
+                <button
+                    class="buy-button"
+                    onclick="openBuy('Shadow Oversized Tee', 799)"
+                >
+                    BUY
+                </button>
+
+            </article>
+
+
+            <!-- PRODUCT 3 -->
+            <article
+                class="product"
+                data-category="ladies"
+                data-name="Cloud Women's Tee"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="images/ladies-tshirt.jpg"
+                        alt="Cloud Women's Tee"
+                    >
+
+                    <button
+                        class="wishlist"
+                        onclick="toggleWishlist(this, 'Cloud Womens Tee', 899)"
+                    >
+                        ♡
+                    </button>
+
+                    <div class="tag">
+                        HOT
+                    </div>
+
+                </div>
+
+                <div class="product-info">
+
+                    <div>
+                        <h3>Cloud Women's Tee</h3>
+                        <p>Soft Cotton • Relaxed Fit</p>
+                    </div>
+
+                    <strong>₹899</strong>
+
+                </div>
+
+                <button
+                    class="buy-button"
+                    onclick="openBuy('Cloud Womens Tee', 899)"
+                >
+                    BUY
+                </button>
+
+            </article>
+
+
+            <!-- PRODUCT 4 -->
+            <article
+                class="product"
+                data-category="watch"
+                data-name="Aero Automatic"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="images/watch1auto.png"
+                        alt="fossil Automatic Watch"
+                    >
+
+                    <button
+                        class="wishlist"
+                        onclick="toggleWishlist(this, 'Aero Automatic', 1899)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="product-info">
+
+                    <div>
+                        <h3>Aero Automatic</h3>
+                        <p>Automatic • Stainless Steel</p>
+                    </div>
+
+                    <strong>₹1,999</strong>
+
+                </div>
+
+                <button
+                    class="buy-button"
+                    onclick="openBuy('Aero Automatic', 1899)"
+                >
+                    BUY
+                </button>
+
+            </article>
+
+
+            <!-- PRODUCT 5 -->
+            <article
+                class="product"
+                data-category="watch"
+                data-name="Digital X"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="images/watch-digital.jpg"
+                        alt="Digital X Watch"
+                    >
+
+                    <button
+                        class="wishlist"
+                        onclick="toggleWishlist(this, 'Digital X', 1299)"
+                    >
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="product-info">
+
+                    <div>
+                        <h3>Digital X</h3>
+                        <p>Digital • Sport Edition</p>
+                    </div>
+
+                    <strong>₹1,299</strong>
+
+                </div>
+
+                <button
+                    class="buy-button"
+                    onclick="openBuy('Digital X', 1299)"
+                >
+                    BUY
+                </button>
+
+            </article>
+
+
+            <!-- PRODUCT 6 -->
+            <article
+                class="product"
+                data-category="sneakers"
+                data-name="Aero Runner"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="images/sneakers.jpg"
+                        alt="Aero Runner Sneakers"
+                    >
+
+                    <button
+                        class="wishlist"
+                        onclick="toggleWishlist(this, 'Aero Runner', 1999)"
+                    >
+                        ♡
+                    </button>
+
+                    <div class="tag">
+                        DROP
+                    </div>
+
+                </div>
+
+                <div class="product-info">
+
+                    <div>
+                        <h3>Aero Runner</h3>
+                        <p>Performance • Street</p>
+                    </div>
+
+                    <strong>₹1,999</strong>
+
+                </div>
+
+                <button
+                    class="buy-button"
+                    onclick="openBuy('Aero Runner', 1999)"
+                >
+                    BUY
+                </button>
+
+            </article>
+
+        </div>
+
+    </main>
+
+
+    <!-- BUY MODAL -->
+
+    <div class="modal" id="buyModal">
+
+        <div class="modal-glass">
+
+            <button class="close" onclick="closeBuy()">×</button>
+
+            <p class="modal-small">
+                YOU FOUND A DROP
+            </p>
+
+            <h2 id="modalProduct">
+                Product
+            </h2>
+
+            <div class="modal-price" id="modalPrice">
+                ₹0
+            </div>
+
+            <p class="modal-question">
+                Are you planning to buy it now
+                or want to talk to us?
+            </p>
+
+
+            <button class="modal-pay" onclick="payNow()">
+                💧 PAY NOW
+            </button>
+
+            <button class="modal-talk" onclick="talkToUs()">
+                💬 TALK TO US
+            </button>
+
+            <button class="paid-button" onclick="openPaidWhatsApp()">
+                ✓ I HAVE PAID
+            </button>
+
+            <p class="payment-note">
+                After payment, tap
+                <b>I HAVE PAID</b> and send your
+                address + payment screenshot on WhatsApp.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div class="toast" id="toast">
+        Added to wishlist ♡
+    </div>
+
+
+    <!-- BOTTOM LIQUID NAV -->
+
+    <nav class="bottom-nav">
+
+        <div class="nav-drop" id="navDrop"></div>
+
+        <button
+            class="nav-item active"
+            onclick="navMove(this); showHome()"
+        >
+            <span>⌂</span>
+            <small>Home</small>
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="navMove(this); showCategories()"
+        >
+            <span>◈</span>
+            <small>Category</small>
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="navMove(this); showWishlist()"
+        >
+            <span>♡</span>
+            <small>Wishlist</small>
+        </button>
+
+        <button
+            class="nav-item"
+            onclick="navMove(this); showCart()"
+        >
+            <span>🛒</span>
+            <small>Cart</small>
+        </button>
+
+    </nav>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
