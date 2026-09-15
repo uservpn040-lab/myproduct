@@ -1,52 +1,135 @@
-/* =========================
-   DROP WATCH STORE
-========================= */
+/* =========================================================
+   DROP STORE
+========================================================= */
 
 
-/* STORE SETTINGS */
-
-const WHATSAPP_NUMBER = "918281454227";
+/* =========================================================
+   STORE SETTINGS
+========================================================= */
 
 /*
-   IMPORTANT:
-   Replace this with YOUR REAL UPI ID.
+   PUT YOUR REAL UPI ID HERE.
 
    Example:
-   yourname@upi
+   const UPI_ID = "yourname@upi";
 
-   Do NOT use the WhatsApp number here.
+   DO NOT put the WhatsApp number here.
 */
+
 const UPI_ID = "YOUR_UPI_ID_HERE";
 
 
-/* CURRENT PRODUCT */
+/*
+   Your WhatsApp number.
+
+   91 = India
+*/
+
+const WHATSAPP_NUMBER = "918281454227";
+
+
+/* =========================================================
+   CURRENT PRODUCT
+========================================================= */
 
 let selectedProduct = "";
 let selectedPrice = 1999;
 
 
-/* WISHLIST */
+/* =========================================================
+   WISHLIST
+========================================================= */
 
 let wishlist = [];
 
 
-/* =========================
-   PRODUCT IMAGE CHECK
-========================= */
+/* =========================================================
+   OPENING ANIMATION
+========================================================= */
 
-function hideProduct(image) {
+window.addEventListener("load", function () {
 
-    const card = image.closest(".product-card");
+    /*
+       Opening animation stays for about 5 seconds.
 
-    if (card) {
-        card.remove();
+       After that, it disappears automatically.
+    */
+
+    setTimeout(() => {
+
+        const opening =
+            document.getElementById("opening");
+
+        if (opening) {
+
+            opening.style.pointerEvents = "none";
+
+        }
+
+    }, 5000);
+
+});
+
+
+/* =========================================================
+   IMAGE ERROR
+========================================================= */
+
+function imageError(image) {
+
+    console.error(
+        "Could not load image:",
+        image.src
+    );
+
+    /*
+       Instead of deleting the whole product,
+       show a clean image error state.
+
+       This makes it easier to see if the
+       GitHub filename/path is wrong.
+    */
+
+    image.style.display = "none";
+
+    const box =
+        image.closest(".product-image");
+
+    if (box) {
+
+        const message =
+            document.createElement("div");
+
+        message.className = "image-error";
+
+        message.innerHTML = `
+            <div style="
+                font-size:35px;
+                margin-bottom:10px;
+                opacity:.5;
+            ">
+                ⌚
+            </div>
+
+            <div style="
+                font-size:10px;
+                color:#777;
+                letter-spacing:1px;
+            ">
+                IMAGE NOT FOUND
+            </div>
+        `;
+
+        box.appendChild(message);
+
     }
+
 }
 
 
-/* =========================
-   SCROLL
-========================= */
+/* =========================================================
+   SCROLL TO PRODUCTS
+========================================================= */
 
 function scrollToProducts() {
 
@@ -58,24 +141,31 @@ function scrollToProducts() {
             document.getElementById("products");
 
         if (products) {
+
             products.scrollIntoView({
-                behavior: "smooth"
+                behavior: "smooth",
+                block: "start"
             });
+
         }
 
     }, 100);
+
 }
 
 
-/* =========================
-   PAGE NAVIGATION
-========================= */
+/* =========================================================
+   PAGE SYSTEM
+========================================================= */
 
 function hidePages() {
 
-    document.querySelectorAll(".page")
+    document
+        .querySelectorAll(".page")
         .forEach(page => {
+
             page.classList.remove("active");
+
         });
 
 }
@@ -83,19 +173,30 @@ function hidePages() {
 
 function updateNav(index) {
 
-    document.querySelectorAll(".nav-item")
+    document
+        .querySelectorAll(".nav-item")
         .forEach(item => {
+
             item.classList.remove("active");
+
         });
 
-    const items =
+    const navItems =
         document.querySelectorAll(".nav-item");
 
-    if (items[index]) {
-        items[index].classList.add("active");
+    if (navItems[index]) {
+
+        navItems[index]
+            .classList.add("active");
+
     }
+
 }
 
+
+/* =========================================================
+   HOME
+========================================================= */
 
 function showHome() {
 
@@ -111,8 +212,13 @@ function showHome() {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
+
+/* =========================================================
+   WISHLIST PAGE
+========================================================= */
 
 function showWishlist() {
 
@@ -130,8 +236,13 @@ function showWishlist() {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
+
+/* =========================================================
+   CART PAGE
+========================================================= */
 
 function showCart() {
 
@@ -147,12 +258,13 @@ function showCart() {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
-/* =========================
+/* =========================================================
    WISHLIST
-========================= */
+========================================================= */
 
 function toggleWishlist(id, button) {
 
@@ -162,116 +274,195 @@ function toggleWishlist(id, button) {
             wishlist.filter(item => item !== id);
 
         button.classList.remove("liked");
+
         button.innerHTML = "♡";
 
-        showToast("Removed from wishlist");
+        showToast(
+            "Removed from saved"
+        );
 
     } else {
 
         wishlist.push(id);
 
         button.classList.add("liked");
+
         button.innerHTML = "♥";
 
-        showToast("Added to wishlist");
+        showToast(
+            "Added to saved"
+        );
 
     }
+
 }
 
+
+/* =========================================================
+   RENDER WISHLIST
+========================================================= */
 
 function renderWishlist() {
 
     const container =
-        document.getElementById("wishlistContent");
+        document.getElementById(
+            "wishlistContent"
+        );
+
 
     if (wishlist.length === 0) {
 
         container.innerHTML = `
-            <div>♡</div>
-            <h2>Nothing saved yet</h2>
-            <p>Tap the heart on a watch to save it.</p>
+
+            <div class="empty-icon">
+                ♡
+            </div>
+
+            <h2>
+                Nothing saved
+            </h2>
+
+            <p>
+                Tap the heart on a watch to save it.
+            </p>
+
         `;
 
         return;
+
     }
 
-    const names = {
+
+    const products = {
+
         1: "Seiko 5 Sports Style",
+
         2: "Seiko Presage Style",
+
         3: "Seiko Diver Style"
+
     };
 
+
     container.innerHTML = `
-        <div style="font-size:30px;">♥</div>
+
+        <div class="empty-icon">
+            ♥
+        </div>
 
         <h2>
-            ${wishlist.length} saved watch
-            ${wishlist.length > 1 ? "es" : ""}
+            ${wishlist.length}
+            saved
         </h2>
 
         <p>
-            ${wishlist.map(id => names[id]).join(" • ")}
+            ${wishlist
+                .map(id => products[id])
+                .join(" • ")
+            }
         </p>
+
     `;
+
 }
 
 
-/* =========================
+/* =========================================================
    BUY MODAL
-========================= */
+========================================================= */
 
 function openBuy(productName, price) {
 
-    selectedProduct = productName;
-    selectedPrice = price;
+    selectedProduct =
+        productName;
+
+    selectedPrice =
+        price;
+
 
     document.getElementById(
         "buyProductName"
-    ).textContent = productName;
+    ).textContent =
+        productName;
+
 
     document.getElementById(
         "buyPrice"
-    ).textContent = `₹${price.toLocaleString("en-IN")}`;
+    ).textContent =
+        `₹${price.toLocaleString("en-IN")}`;
+
 
     document
         .getElementById("buyModal")
         .classList.add("show");
+
 }
 
+
+/* =========================================================
+   CLOSE BUY
+========================================================= */
 
 function closeBuy() {
 
     document
         .getElementById("buyModal")
         .classList.remove("show");
+
 }
 
 
-/* =========================
+/* =========================================================
    PAY NOW
-========================= */
+========================================================= */
 
 function payNow() {
 
-    if (UPI_ID === "YOUR_UPI_ID_HERE") {
+    /*
+       Make sure the customer has entered
+       a real UPI ID.
+    */
+
+    if (
+        UPI_ID ===
+        "YOUR_UPI_ID_HERE"
+    ) {
 
         showToast(
-            "Add your UPI ID in script.js first"
+            "Add your UPI ID in script.js"
         );
 
         return;
+
     }
 
+
     const upiURL =
-        `upi://pay?pa=${encodeURIComponent(UPI_ID)}` +
+        `upi://pay` +
+        `?pa=${encodeURIComponent(UPI_ID)}` +
         `&pn=${encodeURIComponent("DROP Store")}` +
         `&am=${selectedPrice}` +
         `&cu=INR` +
-        `&tn=${encodeURIComponent(selectedProduct)}`;
+        `&tn=${encodeURIComponent(
+            selectedProduct
+        )}`;
 
-    window.location.href = upiURL;
+
+    /*
+       Open the customer's UPI app.
+    */
+
+    window.location.href =
+        upiURL;
+
 
     closeBuy();
+
+
+    /*
+       Show confirmation screen after
+       giving the UPI app time to open.
+    */
 
     setTimeout(() => {
 
@@ -279,43 +470,53 @@ function payNow() {
             .getElementById("paidModal")
             .classList.add("show");
 
-    }, 1500);
+    }, 1800);
+
 }
 
 
-/* =========================
-   TALK TO STORE
-========================= */
+/* =========================================================
+   TALK TO US
+========================================================= */
 
 function talkToUs() {
 
     const message =
         `Dude I am planning to buy the ${selectedProduct} can I get a explanation`;
 
+
     const whatsappURL =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=` +
-        encodeURIComponent(message);
+        `https://wa.me/${WHATSAPP_NUMBER}` +
+        `?text=${encodeURIComponent(message)}`;
+
 
     window.open(
         whatsappURL,
         "_blank"
     );
 
+
     closeBuy();
+
 }
 
 
-/* =========================
-   PAID
-========================= */
+/* =========================================================
+   CLOSE PAID MODAL
+========================================================= */
 
 function closePaid() {
 
     document
         .getElementById("paidModal")
         .classList.remove("show");
+
 }
 
+
+/* =========================================================
+   OPEN PAID WHATSAPP
+========================================================= */
 
 function openPaidWhatsApp() {
 
@@ -330,85 +531,116 @@ Delivery Address:
 
 I will attach my payment screenshot here.`;
 
+
     const whatsappURL =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=` +
-        encodeURIComponent(message);
+        `https://wa.me/${WHATSAPP_NUMBER}` +
+        `?text=${encodeURIComponent(message)}`;
+
 
     window.open(
         whatsappURL,
         "_blank"
     );
 
+
     closePaid();
+
 }
 
 
-/* =========================
+/* =========================================================
    TOAST
-========================= */
+========================================================= */
 
 let toastTimer;
+
 
 function showToast(message) {
 
     const toast =
         document.getElementById("toast");
 
-    toast.textContent = message;
+
+    toast.textContent =
+        message;
+
 
     toast.classList.add("show");
 
-    clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(() => {
+    clearTimeout(
+        toastTimer
+    );
 
-        toast.classList.remove("show");
 
-    }, 2500);
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 2500);
+
 }
 
 
-/* =========================
-   CLOSE MODALS
-========================= */
+/* =========================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+========================================================= */
 
 document.addEventListener(
     "click",
     function(event) {
 
         const buyModal =
-            document.getElementById("buyModal");
+            document.getElementById(
+                "buyModal"
+            );
 
         const paidModal =
-            document.getElementById("paidModal");
+            document.getElementById(
+                "paidModal"
+            );
+
 
         if (
-            event.target === buyModal
+            event.target ===
+            buyModal
         ) {
+
             closeBuy();
+
         }
 
+
         if (
-            event.target === paidModal
+            event.target ===
+            paidModal
         ) {
+
             closePaid();
+
         }
 
     }
 );
 
 
-/* =========================
+/* =========================================================
    ESC KEY
-========================= */
+========================================================= */
 
 document.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Escape") {
+        if (
+            event.key === "Escape"
+        ) {
 
             closeBuy();
+
             closePaid();
 
         }
@@ -417,26 +649,37 @@ document.addEventListener(
 );
 
 
-/* =========================
-   IMAGE CHECK
-========================= */
+/* =========================================================
+   IMAGE DEBUGGING
+========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        document
-            .querySelectorAll(".product-image img")
-            .forEach(img => {
+        const images =
+            document.querySelectorAll(
+                ".product-image img"
+            );
 
-                if (
-                    img.complete &&
-                    img.naturalWidth === 0
-                ) {
-                    hideProduct(img);
-                }
 
-            });
+        images.forEach(image => {
+
+            /*
+               If image was already cached and
+               failed, manually trigger error.
+            */
+
+            if (
+                image.complete &&
+                image.naturalWidth === 0
+            ) {
+
+                imageError(image);
+
+            }
+
+        });
 
     }
 );
